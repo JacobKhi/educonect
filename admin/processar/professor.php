@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p>Por favor, entregue os seguintes dados ao professor:</p>";
         echo "<strong>Matrícula:</strong> " . htmlspecialchars($matricula_formatada) . "<br>";
         echo "<strong>Código de Cadastro:</strong> " . htmlspecialchars($codigo_cadastro) . "<br>";
-        echo '<br><a href="admin_cadastrar_professor.php">Cadastrar outro professor</a>';
-        echo '<br><a href="painel.php">Voltar ao Painel</a>';
+        echo '<br><a href="../cadastrar/professor.php">Cadastrar outro professor</a>';
+        echo '<br><a href="../painel.php">Voltar ao Painel</a>';
 
     } catch (mysqli_sql_exception $exception) {
         $conexao->rollback();

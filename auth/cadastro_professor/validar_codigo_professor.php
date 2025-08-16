@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../conexao.php';
+require_once __DIR__ . '/../../config.php';
+require_once BASE_PATH . '/conexao.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $matricula_professor = $_POST['matricula_professor'];
@@ -15,23 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows > 0) {
         $prof_pendente = $resultado->fetch_assoc();
-
         $_SESSION['id_prof_pendente'] = $prof_pendente['id'];
         $_SESSION['nome_completo_validado'] = $prof_pendente['nome_completo'];
         $_SESSION['matricula_prof_validada'] = $prof_pendente['matricula_professor'];
 
         header("Location: completar_cadastro_professor.php");
         exit();
-
     } else {
         $_SESSION['login_error'] = "Matrícula ou Código de Cadastro de professor inválido.";
         header("Location: finalizar_cadastro_professor.php");
         exit();
     }
-
-    $stmt->close();
-    $conexao->close();
-
 } else {
     header("Location: finalizar_cadastro_professor.php");
     exit();

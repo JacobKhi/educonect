@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../includes/navbar.php';
+require_once __DIR__ . '/../../config.php';
+require_once BASE_PATH . '/includes/navbar.php';
 
 $mensagem_erro = '';
 if (isset($_SESSION['login_error'])) {
@@ -8,29 +9,27 @@ if (isset($_SESSION['login_error'])) {
     unset($_SESSION['login_error']);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Finalizar Cadastro</title>
-    <link rel="stylesheet" href="/educonect/css/global.css">
-    <link rel="stylesheet" href="/educonect/css/navbar.css">
-    <link rel="stylesheet" href="/educonect/css/forms.css">
-    <link rel="stylesheet" href="/educonect/css/footer.css">
+    <title>Finalizar Cadastro de Aluno</title>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/global.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/navbar.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/forms.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/footer.css">
 </head>
 <body class="center-layout">
     <div class="form-container">
-        <h2>Primeiro Acesso - Finalizar Cadastro</h2>
-        <p style="text-align: center; margin-bottom: 20px;">Insira a matrícula e o código de cadastro que você recebeu da instituição.</p>
+        <h2>Primeiro Acesso - Aluno</h2>
+        <p style="text-align: center; margin-bottom: 20px;">Insira a matrícula e o código de cadastro que você recebeu.</p>
         
-        <form action="validar_codigo.php" method="post">
+        <form action="validar_codigo_aluno.php" method="post">
             <?php
             if (!empty($mensagem_erro)) {
                 echo "<div class='erro'>$mensagem_erro</div>";
             }
             ?>
-
             <label for="matricula">Sua Matrícula:</label>
             <input type="text" id="matricula" name="matricula" required>
 
@@ -40,6 +39,6 @@ if (isset($_SESSION['login_error'])) {
             <button type="submit">Validar e Continuar</button>
         </form>
     </div>
-    <?php require_once '../includes/footer.php'; ?>
+    <?php require_once BASE_PATH . '/includes/footer.php'; ?>
 </body>
 </html>

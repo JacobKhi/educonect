@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../conexao.php';
+require_once __DIR__ . '/../../config.php';
+require_once BASE_PATH . '/conexao.php';
 
 $mensagem_erro = '';
 $nome = '';
@@ -9,7 +10,7 @@ $email = '';
 $data_nascimento = '';
 
 if (!isset($_SESSION['matricula_validada'])) {
-    header("Location: finalizar_cadastro.php");
+    header("Location: finalizar_cadastro_aluno.php");
     exit();
 } else {
     $nome = htmlspecialchars($_SESSION['nome_completo_validado']);
@@ -31,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
         $conexao->begin_transaction();
-
         try {
             $sql_usuarios = "INSERT INTO usuarios (id_perfil, nome, email, senha) VALUES (?, ?, ?, ?)";
             $stmt_usuarios = $conexao->prepare($sql_usuarios);
@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conexao->commit();
             session_destroy();
 
-            echo "<!DOCTYPE html><html><head><title>Sucesso</title><link rel='stylesheet' href='/educonect/css/global.css'><style>.msg-sucesso{max-width:500px; margin:50px auto; padding:20px; text-align:center; background-color: #d4edda; color: #155724; border:1px solid #c3e6cb; border-radius:5px;}</style></head><body>";
-            echo "<div class='msg-sucesso'><h1>Cadastro finalizado com sucesso!</h1><p>Sua conta foi criada. Agora você já pode fazer o login no sistema.</p><br><a href='login.php'>Fazer Login</a></div>";
+            echo "<!DOCTYPE html><html><head><title>Sucesso</title><link rel='stylesheet' href='" . BASE_URL . "/css/global.css'><link rel='stylesheet' href='" . BASE_URL . "/css/forms.css'><style>.msg-sucesso{max-width:500px; margin:50px auto; padding:20px; text-align:center; background-color: #d4edda; color: #155724; border:1px solid #c3e6cb; border-radius:5px;}</style></head><body>";
+            echo "<div class='msg-sucesso'><h1>Cadastro finalizado com sucesso!</h1><p>Sua conta foi criada.</p><br><a href='" . BASE_URL . "/auth/login/login.php'>Fazer Login</a></div>";
             echo "</body></html>";
             exit();
 
@@ -68,46 +68,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Completar Cadastro</title>
-    <link rel="stylesheet" href="/educonect/css/global.css">
-    <link rel="stylesheet" href="/educonect/css/navbar.css">
-    <link rel="stylesheet" href="/educonect/css/forms.css">
+    <title>Completar Cadastro de Aluno</title>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/global.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/navbar.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/forms.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/footer.css">
 </head>
 <body>
+    <?php require_once BASE_PATH . '/includes/navbar.php'; ?>
     <div class="form-container">
         <div class="info">
             <h2>Olá, <?php echo $nome; ?>!</h2>
             <p>Sua matrícula é: <strong><?php echo $matricula; ?></strong></p>
         </div>
-
-        <form action="completar_cadastro.php" method="post">
+        <form action="completar_cadastro_aluno.php" method="post">
             <h3>Falta pouco! Preencha os dados abaixo.</h3>
-            
             <?php
             if (!empty($mensagem_erro)) {
                 echo "<div class='erro'>$mensagem_erro</div>";
             }
             ?>
-            
             <label for="email">Seu melhor Email:</label>
             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-
             <label for="senha">Crie uma Senha:</label>
             <input type="password" id="senha" name="senha" required>
-
             <label for="confirmar_senha">Confirme sua Senha:</label>
             <input type="password" id="confirmar_senha" name="confirmar_senha" required>
-
             <label for="data_nascimento">Data de Nascimento:</label>
             <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo htmlspecialchars($data_nascimento); ?>" required>
-
-            <button type="submit">Finalizar Cadastro e Criar Conta</button>
+            <button type="submit">Finalizar Cadastro</button>
         </form>
     </div>
+    <?php require_once BASE_PATH . '/includes/footer.php'; ?>
 </body>
 </html>

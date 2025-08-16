@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../includes/navbar.php';
+require_once __DIR__ . '/../../config.php';
+require_once BASE_PATH . '/includes/navbar.php';
 
 $mensagem_erro = '';
 if (isset($_SESSION['login_error'])) {
@@ -13,17 +14,13 @@ if (isset($_SESSION['login_error'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login - EduConect</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/educonect/css/global.css">
-    <link rel="stylesheet" href="/educonect/css/navbar.css">
-    <link rel="stylesheet" href="/educonect/css/forms.css">
-    <link rel="stylesheet" href="/educonect/css/footer.css"> 
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/global.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/navbar.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/forms.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/footer.css">
 </head>
-<body class="center-layout"> <div class="form-container">
+<body class="center-layout">
+    <div class="form-container">
         <form action="processa_login.php" method="post">
             <h2>Acessar o Sistema</h2>
 
@@ -40,7 +37,6 @@ if (isset($_SESSION['login_error'])) {
             <button type="submit">Entrar</button>
         </form>
     </div>
-
-    <?php require_once '../includes/footer.php'; ?>
+    <?php require_once BASE_PATH . '/includes/footer.php'; ?>
 </body>
 </html>
