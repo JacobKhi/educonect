@@ -1,6 +1,5 @@
 <?php
 session_start();
-// Caminho corrigido para o config.php (sobe dois níveis)
 require_once __DIR__ . '/../../config.php';
 require_once BASE_PATH . '/includes/navbar.php';
 

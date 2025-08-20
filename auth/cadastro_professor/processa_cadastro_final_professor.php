@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST['senha'];
     $confirmar_senha = $_POST['confirmar_senha'];
     $especializacao = $_POST['especializacao'];
-    $id_perfil_prof = 2; // O id_perfil para professor é 2
+    $id_perfil_prof = 2;
 
     if ($senha !== $confirmar_senha) {
         $_SESSION['error_message'] = "As senhas não coincidem.";
-        $_SESSION['form_data'] = $_POST; // Guarda os dados digitados
+        $_SESSION['form_data'] = $_POST;
         header("Location: completar_cadastro_professor.php");
         exit();
     }

@@ -1,6 +1,5 @@
 <?php
 
-// --- COLOQUE A SENHA QUE VOCÊ QUER PARA O ADMIN AQUI ---
 $senha_para_o_admin = 'jacob123';
 
 $hash_da_senha = password_hash($senha_para_o_admin, PASSWORD_DEFAULT);

@@ -1,5 +1,4 @@
 <?php 
-// O require_once para a navbar precisa do caminho para a pasta includes
 require_once 'includes/navbar.php'; 
 ?>
 <!DOCTYPE html>
