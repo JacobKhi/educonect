@@ -37,7 +37,8 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil_id'] != 4) {
                     <a href="gerenciar/disciplinas.php">Gerenciar Disciplinas</a><br>
                     <a href="gerenciar/turmas.php">Gerenciar Turmas</a><br>
                     <a href="gerenciar/alocar_professores.php">Alocar Professores</a><br>
-                    <a href="gerenciar/matricular_alunos.php">Matricular Alunos</a>
+                    <a href="gerenciar/matricular_alunos.php">Matricular Alunos</a><br>
+                    <a href="gerenciar/usuarios.php">Ver Usuários Ativos</a><br>
                 </div>
             </div>
         </div>

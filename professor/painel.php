@@ -51,7 +51,7 @@ $conexao->close();
         <p>Bem-vindo(a), <?php echo $nome_usuario; ?>!</p>
         <hr style="margin-bottom: 30px;">
         
-        <?php if ($perfil_usuario == 1): ?>
+        <?php if ($perfil_usuario == 1): // Se for Aluno ?>
             <div class="dashboard-grid">
                 <div class="dashboard-card">
                     <h3>Últimas Notas</h3>
