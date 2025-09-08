@@ -44,12 +44,13 @@ $result_alocacoes = $stmt_alocacoes->get_result();
 $sql_atividades = "
     SELECT a.titulo, a.data_entrega, t.nome AS nome_turma, d.nome AS nome_disciplina
     FROM atividades a
-    JOIN professores_turmas_disciplinas ptd ON a.id_prof_turma_disc = ptd.id
+    JOIN professores_turmas_disciplinas ptd ON a.id_professor_turma_disciplina = ptd.id
     JOIN turmas t ON ptd.id_turma = t.id
     JOIN disciplinas d ON ptd.id_disciplina = d.id
     WHERE ptd.id_professor_usuario = ?
     ORDER BY a.data_entrega DESC
 ";
+
 $stmt_atividades = $conexao->prepare($sql_atividades);
 $stmt_atividades->bind_param("i", $id_professor);
 $stmt_atividades->execute();

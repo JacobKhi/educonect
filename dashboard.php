@@ -14,7 +14,13 @@ $perfil_usuario = $_SESSION['usuario_perfil_id'];
 
 $ultimas_notas = [];
 if ($perfil_usuario == 1) {
-    $sql_notas = "SELECT n.valor_nota, d.nome AS nome_disciplina FROM notas n JOIN atividades a ON n.id_atividade = a.id JOIN professores_turmas_disciplinas ptd ON a.id_prof_turma_disc = ptd.id JOIN disciplinas d ON ptd.id_disciplina = d.id WHERE n.id_aluno_usuario = ? ORDER BY n.data_lancamento DESC LIMIT 5";
+    $sql_notas = "SELECT n.valor_nota, d.nome AS nome_disciplina 
+                  FROM notas n 
+                  JOIN atividades a ON n.id_atividade = a.id 
+                  JOIN professores_turmas_disciplinas ptd ON a.id_professor_turma_disciplina = ptd.id 
+                  JOIN disciplinas d ON ptd.id_disciplina = d.id 
+                  WHERE n.id_aluno_usuario = ? 
+                  ORDER BY n.data_lancamento DESC LIMIT 5";
     $stmt = $conexao->prepare($sql_notas);
     $stmt->bind_param("i", $id_usuario_logado);
     $stmt->execute();

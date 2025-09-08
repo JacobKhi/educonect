@@ -20,7 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario_nome'] = $usuario['nome'];
             $_SESSION['usuario_perfil_id'] = $usuario['id_perfil'];
             
-            header("Location: " . BASE_URL . "/dashboard.php");
+            $url_destino = BASE_URL . '/dashboard.php';
+
+            switch ($usuario['id_perfil']) {
+                case 2: // Professor
+                    $url_destino = BASE_URL . '/professor/painel.php';
+                    break;
+                case 4: // Admin/Gestor
+                    $url_destino = BASE_URL . '/admin/painel.php';
+                    break;
+            }
+            
+            header("Location: " . $url_destino);
             exit();
         }
     }

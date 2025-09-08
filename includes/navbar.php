@@ -4,13 +4,29 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../config.php';
+
+$dashboard_url = BASE_URL . '/dashboard.php'; 
+
+if (isset($_SESSION['usuario_perfil_id'])) {
+    switch ($_SESSION['usuario_perfil_id']) {
+        case 2: // Se for Professor
+            $dashboard_url = BASE_URL . '/professor/painel.php';
+            break;
+        case 4: // Se for Admin
+            $dashboard_url = BASE_URL . '/admin/painel.php';
+            break;
+
+    }
+}
+
 ?>
 <div class="navbar">
     <a href="<?php echo BASE_URL; ?>/index.php">Início</a>
 
     <div class="navbar-right">
         <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a href="<?php echo BASE_URL; ?>/dashboard.php">Meu Painel</a>
+            
+            <a href="<?php echo $dashboard_url; ?>">Meu Painel</a>
             
             <?php if ($_SESSION['usuario_perfil_id'] == 4): ?>
                 <a href="<?php echo BASE_URL; ?>/admin/painel.php">Painel Admin</a>
