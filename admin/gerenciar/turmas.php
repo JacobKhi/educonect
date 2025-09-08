@@ -59,13 +59,24 @@ $resultado_turmas = $conexao->query($sql_busca);
                     <h3>Turmas Cadastradas</h3>
                     <?php if ($resultado_turmas->num_rows > 0): ?>
                         <table>
-                            <thead><tr><th>ID</th><th>Nome</th><th>Ano Letivo</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Ano Letivo</th>
+                                    <th style="width: 150px;">Ações</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php while($turma = $resultado_turmas->fetch_assoc()): ?>
                                     <tr>
                                         <td><?php echo $turma['id']; ?></td>
                                         <td><?php echo htmlspecialchars($turma['nome']); ?></td>
                                         <td><?php echo htmlspecialchars($turma['ano_letivo']); ?></td>
+                                        <td class="actions-cell">
+                                            <a href="editar_turma.php?id=<?php echo $turma['id']; ?>" class="btn btn-small btn-edit">Editar</a>
+                                            <a href="excluir_turma.php?id=<?php echo $turma['id']; ?>" class="btn btn-small btn-delete">Excluir</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>

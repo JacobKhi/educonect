@@ -54,12 +54,22 @@ $resultado_disciplinas = $conexao->query($sql_busca);
                     <h3>Disciplinas Cadastradas</h3>
                     <?php if ($resultado_disciplinas->num_rows > 0): ?>
                         <table>
-                            <thead><tr><th>ID</th><th>Nome</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th style="width: 150px;">Ações</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php while($disciplina = $resultado_disciplinas->fetch_assoc()): ?>
                                     <tr>
                                         <td><?php echo $disciplina['id']; ?></td>
                                         <td><?php echo htmlspecialchars($disciplina['nome']); ?></td>
+                                        <td class="actions-cell">
+                                            <a href="editar_disciplina.php?id=<?php echo $disciplina['id']; ?>" class="btn btn-small btn-edit">Editar</a>
+                                            <a href="excluir_disciplina.php?id=<?php echo $disciplina['id']; ?>" class="btn btn-small btn-delete">Excluir</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>

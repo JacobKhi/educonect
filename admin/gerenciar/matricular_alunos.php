@@ -31,11 +31,12 @@ $result_turmas = $conexao->query($sql_turmas);
 
 $sql_matriculas = "
     SELECT 
+        u.id AS id_aluno,
+        t.id AS id_turma,
         u.nome AS nome_aluno,
         t.nome AS nome_turma
     FROM 
         alunos_turmas at
-    -- CORREÇÃO AQUI: trocado aluno_usuario_id por id_aluno_usuario
     JOIN usuarios u ON at.id_aluno_usuario = u.id
     JOIN turmas t ON at.id_turma = t.id
     ORDER BY nome_turma, nome_aluno;
@@ -89,12 +90,21 @@ $result_matriculas = $conexao->query($sql_matriculas);
                     <h3>Alunos Matriculados</h3>
                     <?php if ($result_matriculas && $result_matriculas->num_rows > 0): ?>
                         <table>
-                            <thead><tr><th>Turma</th><th>Aluno</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Turma</th>
+                                    <th>Aluno</th>
+                                    <th style="width: 120px;">Ações</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php while($mat = $result_matriculas->fetch_assoc()): ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($mat['nome_turma']); ?></td>
                                         <td><?php echo htmlspecialchars($mat['nome_aluno']); ?></td>
+                                        <td class="actions-cell">
+                                            <a href="excluir_matricula.php?id_aluno=<?php echo $mat['id_aluno']; ?>&id_turma=<?php echo $mat['id_turma']; ?>" class="btn btn-small btn-delete">Excluir</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>

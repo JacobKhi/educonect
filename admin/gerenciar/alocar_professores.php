@@ -34,8 +34,10 @@ $result_turmas = $conexao->query($sql_turmas);
 $sql_disciplinas = "SELECT id, nome FROM disciplinas ORDER BY nome ASC";
 $result_disciplinas = $conexao->query($sql_disciplinas);
 
+// Consulta SQL ATUALIZADA para buscar o ID da alocação
 $sql_alocacoes = "
     SELECT 
+        ptd.id, 
         u.nome AS nome_professor,
         t.nome AS nome_turma,
         d.nome AS nome_disciplina
@@ -104,13 +106,23 @@ $result_alocacoes = $conexao->query($sql_alocacoes);
                     <h3>Alocações Existentes</h3>
                     <?php if ($result_alocacoes->num_rows > 0): ?>
                         <table>
-                            <thead><tr><th>Turma</th><th>Disciplina</th><th>Professor Responsável</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Turma</th>
+                                    <th>Disciplina</th>
+                                    <th>Professor Responsável</th>
+                                    <th style="width: 120px;">Ações</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php while($aloc = $result_alocacoes->fetch_assoc()): ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($aloc['nome_turma']); ?></td>
                                         <td><?php echo htmlspecialchars($aloc['nome_disciplina']); ?></td>
                                         <td><?php echo htmlspecialchars($aloc['nome_professor']); ?></td>
+                                        <td class="actions-cell">
+                                            <a href="excluir_alocacao.php?id=<?php echo $aloc['id']; ?>" class="btn btn-small btn-delete">Excluir</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>
