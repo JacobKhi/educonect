@@ -35,14 +35,6 @@ $conexao->close();
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/navbar.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/footer.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/layouts.css">
-    <style>
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .dashboard-card { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .dashboard-card h3 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .dashboard-card ul { list-style: none; padding: 0; }
-        .dashboard-card li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
-        .nota { font-weight: bold; }
-    </style>
 </head>
 <body>
     <?php require_once BASE_PATH . '/includes/navbar.php'; ?>

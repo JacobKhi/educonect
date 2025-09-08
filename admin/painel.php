@@ -19,7 +19,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil_id'] != 4) {
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/layouts.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/footer.css">
 </head>
-<body>
+<body class="center-layout">
     <div class="container">
         <div class="content-box">
             <h1>Painel do Gestor</h1>
