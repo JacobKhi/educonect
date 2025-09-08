@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 require_once __DIR__ . '/../config.php';
 
-$dashboard_url = BASE_URL . '/dashboard.php'; 
+$dashboard_url = BASE_URL . '/aluno/painel.php';
 
 if (isset($_SESSION['usuario_perfil_id'])) {
     switch ($_SESSION['usuario_perfil_id']) {
@@ -27,10 +27,6 @@ if (isset($_SESSION['usuario_perfil_id'])) {
         <?php if (isset($_SESSION['usuario_id'])): ?>
             
             <a href="<?php echo $dashboard_url; ?>">Meu Painel</a>
-            
-            <?php if ($_SESSION['usuario_perfil_id'] == 4): ?>
-                <a href="<?php echo BASE_URL; ?>/admin/painel.php">Painel Admin</a>
-            <?php endif; ?>
 
             <a href="<?php echo BASE_URL; ?>/auth/login/logout.php">Sair</a>
         <?php else: ?>

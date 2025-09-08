@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario_nome'] = $usuario['nome'];
             $_SESSION['usuario_perfil_id'] = $usuario['id_perfil'];
             
-            $url_destino = BASE_URL . '/dashboard.php';
+            $url_destino = BASE_URL . '/aluno/painel.php';
 
             switch ($usuario['id_perfil']) {
                 case 2: // Professor

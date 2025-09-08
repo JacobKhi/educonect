@@ -50,7 +50,6 @@ $sql_atividades = "
     WHERE ptd.id_professor_usuario = ?
     ORDER BY a.data_entrega DESC
 ";
-
 $stmt_atividades = $conexao->prepare($sql_atividades);
 $stmt_atividades->bind_param("i", $id_professor);
 $stmt_atividades->execute();
