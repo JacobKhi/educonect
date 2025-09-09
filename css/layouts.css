@@ -185,3 +185,27 @@ th {
 .btn-delete:hover {
   background-color: #dc2626;
 }
+
+/* Estilos para o Accordion (Abas Expansíveis) */
+.accordion-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #f9fafb;
+}
+
+.accordion-header {
+    padding: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    outline: none;
+    color: #1E3A8A;
+}
+.accordion-header:hover {
+    background-color: #f0f2f5;
+}
+
+.accordion-content {
+    padding: 0 15px 15px 15px;
+}

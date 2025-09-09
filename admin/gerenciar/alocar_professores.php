@@ -34,7 +34,7 @@ $result_turmas = $conexao->query($sql_turmas);
 $sql_disciplinas = "SELECT id, nome FROM disciplinas ORDER BY nome ASC";
 $result_disciplinas = $conexao->query($sql_disciplinas);
 
-// Consulta SQL ATUALIZADA para buscar o ID da alocação
+// Busca as alocações e agrupa por turma
 $sql_alocacoes = "
     SELECT 
         ptd.id, 
@@ -49,6 +49,13 @@ $sql_alocacoes = "
     ORDER BY nome_turma, nome_disciplina, nome_professor;
 ";
 $result_alocacoes = $conexao->query($sql_alocacoes);
+
+$alocacoes_por_turma = [];
+if ($result_alocacoes) {
+    while ($aloc = $result_alocacoes->fetch_assoc()) {
+        $alocacoes_por_turma[$aloc['nome_turma']][] = $aloc;
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -104,29 +111,34 @@ $result_alocacoes = $conexao->query($sql_alocacoes);
 
                 <div class="list-section">
                     <h3>Alocações Existentes</h3>
-                    <?php if ($result_alocacoes->num_rows > 0): ?>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Turma</th>
-                                    <th>Disciplina</th>
-                                    <th>Professor Responsável</th>
-                                    <th style="width: 120px;">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while($aloc = $result_alocacoes->fetch_assoc()): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($aloc['nome_turma']); ?></td>
-                                        <td><?php echo htmlspecialchars($aloc['nome_disciplina']); ?></td>
-                                        <td><?php echo htmlspecialchars($aloc['nome_professor']); ?></td>
-                                        <td class="actions-cell">
-                                            <a href="excluir_alocacao.php?id=<?php echo $aloc['id']; ?>" class="btn btn-small btn-delete">Excluir</a>
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+                    <?php if (!empty($alocacoes_por_turma)): ?>
+                        <?php foreach ($alocacoes_por_turma as $nome_turma => $alocacoes): ?>
+                            <details class="accordion-item">
+                                <summary class="accordion-header"><?php echo htmlspecialchars($nome_turma); ?></summary>
+                                <div class="accordion-content">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Disciplina</th>
+                                                <th>Professor Responsável</th>
+                                                <th style="width: 120px;">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($alocacoes as $aloc): ?>
+                                                <tr>
+                                                    <td><?php echo htmlspecialchars($aloc['nome_disciplina']); ?></td>
+                                                    <td><?php echo htmlspecialchars($aloc['nome_professor']); ?></td>
+                                                    <td class="actions-cell">
+                                                        <a href="excluir_alocacao.php?id=<?php echo $aloc['id']; ?>" class="btn btn-small btn-delete">Excluir</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </details>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <p>Nenhuma alocação cadastrada ainda.</p>
                     <?php endif; ?>
