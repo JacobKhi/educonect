@@ -29,7 +29,9 @@ $is_home_page = basename($_SERVER['SCRIPT_NAME']) == 'index.php';
     <div class="navbar-right">
         <?php if (isset($_SESSION['usuario_id'])): ?>
             <a href="<?php echo $dashboard_url; ?>">Meu Painel</a>
-            <a href="<?php echo BASE_URL; ?>/calendario.php">Calendário</a> <a href="<?php echo BASE_URL; ?>/auth/login/logout.php">Sair</a>
+            <a href="<?php echo BASE_URL; ?>/calendario.php">Calendário</a> 
+            <a href="<?php echo BASE_URL; ?>/comum/perfil.php">Meu Perfil</a>
+            <a href="<?php echo BASE_URL; ?>/auth/login/logout.php">Sair</a>
 
         <?php else: ?>
             <?php if ($is_home_page): ?>
