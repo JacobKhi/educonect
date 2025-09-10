@@ -30,6 +30,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil_id'] != 4) {
                     <h3>Gestão de Convites</h3>
                     <a href="cadastrar/aluno.php">Pré-cadastrar Aluno</a><br>
                     <a href="cadastrar/professor.php">Pré-cadastrar Professor</a><br>
+                    <a href="cadastrar/responsavel.php">Pré-cadastrar Responsável</a><br>
                     <a href="ver_pendentes.php">Ver Convites Pendentes</a>
                 </div>
                 <div class="menu-item">
@@ -38,6 +39,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil_id'] != 4) {
                     <a href="gerenciar/turmas.php">Gerenciar Turmas</a><br>
                     <a href="gerenciar/alocar_professores.php">Alocar Professores</a><br>
                     <a href="gerenciar/matricular_alunos.php">Matricular Alunos</a><br>
+                    <a href="gerenciar/responsaveis.php">Gerenciar Responsáveis</a><br>
                     <a href="gerenciar/usuarios.php">Ver Usuários Ativos</a><br>
                 </div>
             </div>
