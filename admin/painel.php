@@ -37,6 +37,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil_id'] != 4) {
                     <h3>Gestão Acadêmica</h3>
                     <a href="gerenciar/disciplinas.php">Gerenciar Disciplinas</a><br>
                     <a href="gerenciar/turmas.php">Gerenciar Turmas</a><br>
+                    <a href="gerenciar/calendario.php">Gerenciar Calendário</a><br>
                     <a href="gerenciar/alocar_professores.php">Alocar Professores</a><br>
                     <a href="gerenciar/matricular_alunos.php">Matricular Alunos</a><br>
                     <a href="gerenciar/responsaveis.php">Gerenciar Responsáveis</a><br>

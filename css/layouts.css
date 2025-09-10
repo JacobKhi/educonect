@@ -188,24 +188,24 @@ th {
 
 /* Estilos para o Accordion (Abas Expansíveis) */
 .accordion-item {
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: #f9fafb;
 }
 
 .accordion-header {
-    padding: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    display: block;
-    outline: none;
-    color: #1E3A8A;
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  outline: none;
+  color: #1e3a8a;
 }
 .accordion-header:hover {
-    background-color: #f0f2f5;
+  background-color: #f0f2f5;
 }
 
 .accordion-content {
-    padding: 0 15px 15px 15px;
+  padding: 0 15px 15px 15px;
 }
