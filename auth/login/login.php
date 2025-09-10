@@ -35,6 +35,10 @@ if (isset($_SESSION['login_error'])) {
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
             <button type="submit">Entrar</button>
+
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="solicitar_recuperacao.php">Esqueceu a senha?</a>
+            </div>
         </form>
     </div>
     <?php require_once BASE_PATH . '/includes/footer.php'; ?>

@@ -50,6 +50,28 @@ $result_atividades = $stmt_atividades->get_result();
 $proximas_atividades = $result_atividades->fetch_all(MYSQLI_ASSOC);
 $stmt_atividades->close();
 
+// 3. Buscar as aulas de HOJE
+$dia_semana_hoje = date('N'); // 'N' retorna 1 para Segunda, ..., 7 para Domingo
+$sql_aulas = "
+    SELECT 
+        h.hora_inicio, 
+        h.hora_fim, 
+        d.nome AS nome_disciplina
+    FROM horarios h
+    JOIN professores_turmas_disciplinas ptd ON h.id_prof_turma_disc = ptd.id
+    JOIN disciplinas d ON ptd.id_disciplina = d.id
+    JOIN alunos_turmas at ON ptd.id_turma = at.id_turma
+    WHERE at.id_aluno_usuario = ? AND h.dia_semana = ?
+    ORDER BY h.hora_inicio ASC
+";
+$stmt_aulas = $conexao->prepare($sql_aulas);
+$stmt_aulas->bind_param("ii", $id_aluno, $dia_semana_hoje);
+$stmt_aulas->execute();
+$result_aulas = $stmt_aulas->get_result();
+$aulas_de_hoje = $result_aulas->fetch_all(MYSQLI_ASSOC);
+$stmt_aulas->close();
+
+
 $conexao->close();
 ?>
 <!DOCTYPE html>
@@ -71,6 +93,22 @@ $conexao->close();
             <hr>
 
             <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Aulas de Hoje</h3>
+                    <?php if (!empty($aulas_de_hoje)): ?>
+                        <ul>
+                            <?php foreach ($aulas_de_hoje as $aula): ?>
+                                <li>
+                                    <span><strong><?php echo htmlspecialchars($aula['nome_disciplina']); ?></strong></span>
+                                    <span class="nota"><?php echo date('H:i', strtotime($aula['hora_inicio'])); ?> - <?php echo date('H:i', strtotime($aula['hora_fim'])); ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>Nenhuma aula agendada para hoje.</p>
+                    <?php endif; ?>
+                </div>
+
                 <div class="dashboard-card">
                     <h3>Próximas Atividades</h3>
                     <?php if (!empty($proximas_atividades)): ?>
