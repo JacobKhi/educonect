@@ -18,16 +18,18 @@ if ($token) {
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows > 0) {
-        $reset = $resultado->fetch_assoc();
-        $agora = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
-        $data_expiracao = new DateTime($reset['data_expiracao']);
+    $reset = $resultado->fetch_assoc();
+    $fuso_horario = new DateTimeZone('America/Sao_Paulo');
 
-        if ($agora < $data_expiracao) {
-            $token_valido = true;
-            $id_usuario = $reset['id_usuario'];
-        } else {
-            $mensagem_erro = "Este link de recuperação expirou. Por favor, solicite um novo.";
-        }
+    $agora = new DateTime('now', $fuso_horario);
+    $data_expiracao = new DateTime($reset['data_expiracao'], $fuso_horario);
+
+    if ($agora < $data_expiracao) {
+        $token_valido = true;
+        $id_usuario = $reset['id_usuario'];
+    } else {
+        $mensagem_erro = "Este link de recuperação expirou. Por favor, solicite um novo.";
+    }
     } else {
         $mensagem_erro = "Link de recuperação inválido.";
     }
