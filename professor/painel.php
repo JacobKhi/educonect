@@ -35,6 +35,7 @@ $nome_usuario = htmlspecialchars($_SESSION['usuario_nome']);
                     <a href="<?php echo BASE_URL; ?>/professor/atividades.php">Gerenciar Atividades</a>
                     <a href="<?php echo BASE_URL; ?>/professor/lancar_notas.php">Lançar Notas</a>
                     <a href="<?php echo BASE_URL; ?>/professor/registrar_frequencia.php">Registrar Frequência</a>
+                    <a href="<?php echo BASE_URL; ?>/professor/materiais.php">Gerenciar Materiais</a>
                 </div>
             </div>
         </div>
