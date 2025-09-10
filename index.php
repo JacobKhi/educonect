@@ -1,5 +1,4 @@
 <?php 
-// O require da navbar continua aqui para que utilizadores logados vejam a versão correta dela
 require_once 'includes/navbar.php'; 
 ?>
 <!DOCTYPE html>
@@ -25,7 +24,7 @@ require_once 'includes/navbar.php';
             <div class="features-grid">
                 <div class="feature-card">
                     <h3>Para Alunos</h3>
-                    <p>Consulte as suas notas, acompanhe as atividades, veja a sua frequência e tenha controlo total sobre a sua vida académica.</p>
+                    <p>Consulte as suas notas, acompanhe as atividades, veja a sua frequência e tenha controle total sobre a sua vida académica.</p>
                 </div>
                 <div class="feature-card">
                     <h3>Para Professores</h3>
