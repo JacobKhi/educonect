@@ -29,9 +29,6 @@ $is_home_page = basename($_SERVER['SCRIPT_NAME']) == 'index.php';
     <div class="navbar-right">
         <?php if (isset($_SESSION['usuario_id'])): ?>
             <a href="<?php echo $dashboard_url; ?>">Meu Painel</a>
-            <?php if ($_SESSION['usuario_perfil_id'] == 4): ?>
-                <a href="<?php echo BASE_URL; ?>/admin/painel.php">Painel Admin</a>
-            <?php endif; ?>
             <a href="<?php echo BASE_URL; ?>/auth/login/logout.php">Sair</a>
 
         <?php else: ?>

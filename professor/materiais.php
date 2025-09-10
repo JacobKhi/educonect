@@ -143,6 +143,7 @@ $result_materiais = $stmt_materiais->get_result();
                                         <td><?php echo htmlspecialchars($mat['titulo']); ?></td>
                                         <td><?php echo htmlspecialchars($mat['nome_turma'] . " - " . $mat['nome_disciplina']); ?></td>
                                         <td class="actions-cell">
+                                            <a href="editar_material.php?id=<?php echo $mat['id']; ?>" class="btn btn-small btn-edit">Editar</a>
                                             <a href="materiais.php?acao=excluir&id=<?php echo $mat['id']; ?>" class="btn btn-small btn-delete" onclick="return confirm('Tem a certeza que deseja excluir este material?')">Excluir</a>
                                         </td>
                                     </tr>

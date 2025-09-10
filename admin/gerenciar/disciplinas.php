@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nome_disciplina'])) {
         $stmt->bind_param("s", $nome_disciplina);
         $stmt->execute();
         $stmt->close();
+        $_SESSION['mensagem_sucesso'] = "Disciplina adicionada com sucesso!";
         header("Location: disciplinas.php");
         exit();
     }
@@ -38,6 +39,16 @@ $resultado_disciplinas = $conexao->query($sql_busca);
     <?php require_once BASE_PATH . '/includes/navbar.php'; ?>
     <div class="container">
         <div class="content-box">
+
+            <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
+                <div class="sucesso">
+                    <?php 
+                        echo $_SESSION['mensagem_sucesso']; 
+                        unset($_SESSION['mensagem_sucesso']);
+                    ?>
+                </div>
+            <?php endif; ?>
+
             <h1>Gerenciar Disciplinas</h1>
             <div class="form-and-list-layout">
                 <div class="form-section">

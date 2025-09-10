@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['titulo'])) {
     $data_entrega = $_POST['data_entrega'];
 
     if (!empty($id_prof_turma_disc) && !empty($titulo)) {
-        $sql = "INSERT INTO atividades (id_prof_turma_disc, titulo, instrucoes, data_entrega) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO atividades (id_professor_turma_disciplina, titulo, instrucoes, data_entrega) VALUES (?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("isss", $id_prof_turma_disc, $titulo, $instrucoes, $data_entrega);
         $stmt->execute();
@@ -42,7 +42,7 @@ $stmt_alocacoes->execute();
 $result_alocacoes = $stmt_alocacoes->get_result();
 
 $sql_atividades = "
-    SELECT a.titulo, a.data_entrega, t.nome AS nome_turma, d.nome AS nome_disciplina
+    SELECT a.id, a.titulo, a.data_entrega, t.nome AS nome_turma, d.nome AS nome_disciplina
     FROM atividades a
     JOIN professores_turmas_disciplinas ptd ON a.id_professor_turma_disciplina = ptd.id
     JOIN turmas t ON ptd.id_turma = t.id
@@ -106,13 +106,24 @@ $result_atividades = $stmt_atividades->get_result();
                     <h3>Atividades Criadas</h3>
                     <?php if ($result_atividades && $result_atividades->num_rows > 0): ?>
                         <table>
-                            <thead><tr><th>Título</th><th>Turma/Disciplina</th><th>Data de Entrega</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Turma/Disciplina</th>
+                                    <th>Data de Entrega</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php while($ativ = $result_atividades->fetch_assoc()): ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($ativ['titulo']); ?></td>
                                         <td><?php echo htmlspecialchars($ativ['nome_turma'] . " - " . $ativ['nome_disciplina']); ?></td>
                                         <td><?php echo date('d/m/Y', strtotime($ativ['data_entrega'])); ?></td>
+                                        <td class="actions-cell">
+                                            <a href="editar_atividade.php?id=<?php echo $ativ['id']; ?>" class="btn btn-small btn-edit">Editar</a>
+                                            <a href="excluir_atividade.php?id=<?php echo $ativ['id']; ?>" class="btn btn-small btn-delete">Excluir</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>

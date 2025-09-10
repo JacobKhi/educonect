@@ -114,10 +114,12 @@ $conexao->close();
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>
+                                        <a href="<?php echo BASE_URL; ?>/aluno/minhas_atividades.php?id_aluno=<?php echo $dados['id']; ?>" class="btn" style="display: block; text-align: center; margin-top: 20px;">Ver Todas</a>
                                     <?php else: ?>
                                         <p>Nenhuma atividade futura encontrada.</p>
                                     <?php endif; ?>
                                 </div>
+
                                 <div class="dashboard-card">
                                     <h3>Últimas Notas</h3>
                                     <?php if (!empty($dados['ultimas_notas'])): ?>
@@ -129,6 +131,7 @@ $conexao->close();
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>
+                                        <a href="<?php echo BASE_URL; ?>/aluno/minhas_notas.php?id_aluno=<?php echo $dados['id']; ?>" class="btn" style="display: block; text-align: center; margin-top: 20px;">Ver Todas</a>
                                     <?php else: ?>
                                         <p>Nenhuma nota lançada ainda.</p>
                                     <?php endif; ?>

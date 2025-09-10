@@ -3,13 +3,37 @@ session_start();
 require_once __DIR__ . '/../config.php';
 require_once BASE_PATH . '/conexao.php';
 
-// Redireciona se não for um aluno logado
-if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil_id'] != 1) {
+// Redireciona se não houver ninguém logado
+if (!isset($_SESSION['usuario_id'])) {
     header("Location: " . BASE_URL . "/auth/login/index.php");
     exit();
 }
 
-$id_aluno = $_SESSION['usuario_id'];
+$id_aluno_alvo = 0;
+$nome_aluno_alvo = "";
+
+// Lógica para determinar de qual aluno mostrar os dados
+if ($_SESSION['usuario_perfil_id'] == 1) { // Se for o próprio ALUNO a ver
+    $id_aluno_alvo = $_SESSION['usuario_id'];
+    $nome_aluno_alvo = htmlspecialchars($_SESSION['usuario_nome']);
+} elseif ($_SESSION['usuario_perfil_id'] == 3 && isset($_GET['id_aluno'])) { // Se for um RESPONSÁVEL
+    $id_aluno_alvo = $_GET['id_aluno'];
+    
+    // Verificação de segurança: O responsável tem permissão para ver este aluno?
+    $sql_check = "SELECT u.nome FROM responsaveis_alunos ra JOIN usuarios u ON ra.id_aluno_usuario = u.id WHERE ra.id_aluno_usuario = ? AND ra.id_responsavel_usuario = ?";
+    $stmt_check = $conexao->prepare($sql_check);
+    $stmt_check->bind_param("ii", $id_aluno_alvo, $_SESSION['usuario_id']);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+    if ($result_check->num_rows == 0) {
+        die("Acesso não autorizado."); // Medida de segurança
+    }
+    $aluno_info = $result_check->fetch_assoc();
+    $nome_aluno_alvo = htmlspecialchars($aluno_info['nome']);
+    $stmt_check->close();
+} else {
+    die("Acesso não autorizado.");
+}
 
 // Buscar todas as notas do aluno, com detalhes da atividade e disciplina
 $sql_notas = "
@@ -26,7 +50,7 @@ $sql_notas = "
     ORDER BY d.nome ASC, a.data_entrega DESC
 ";
 $stmt = $conexao->prepare($sql_notas);
-$stmt->bind_param("i", $id_aluno);
+$stmt->bind_param("i", $id_aluno_alvo);
 $stmt->execute();
 $result_notas = $stmt->get_result();
 $notas_por_disciplina = [];
