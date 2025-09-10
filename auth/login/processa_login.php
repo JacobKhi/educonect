@@ -26,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 case 2: // Professor
                     $url_destino = BASE_URL . '/professor/painel.php';
                     break;
+                case 3: // Responsável
+                    $url_destino = BASE_URL . '/responsavel/painel.php';
+                    break;
                 case 4: // Admin/Gestor
                     $url_destino = BASE_URL . '/admin/painel.php';
                     break;

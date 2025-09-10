@@ -12,13 +12,15 @@ if (isset($_SESSION['usuario_perfil_id'])) {
         case 2: // Professor
             $dashboard_url = BASE_URL . '/professor/painel.php';
             break;
+        case 3: // Responsável
+            $dashboard_url = BASE_URL . '/responsavel/painel.php';
+            break;
         case 4: // Admin
             $dashboard_url = BASE_URL . '/admin/painel.php';
             break;
     }
 }
 
-// Verifica se a página atual é a index.php
 $is_home_page = basename($_SERVER['SCRIPT_NAME']) == 'index.php';
 ?>
 <div class="navbar">
